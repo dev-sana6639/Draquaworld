@@ -72,3 +72,14 @@ export const updateTicketService = (props) =>{
 
        })
 }
+
+export const droppedplan = async (props) =>{
+   
+    const uid = props.uid;
+    const Pid = props.Pid;
+    
+    
+    await database().ref(`Users/${uid}/${Pid}`).remove();
+
+
+}
