@@ -26,6 +26,7 @@ export const mainstack = {
 
 export const rootSwitch = {
     auth: 'AuthStack',
-    main: 'mainstack'
+    main: 'mainstack',
+    loading: 'loading'
     
 }

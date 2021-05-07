@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         
     },
     list: {
-        height:'90%',
+        height:'94%',
         marginTop: 5,
         marginBottom:10,
         width: '95%',

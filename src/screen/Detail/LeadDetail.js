@@ -224,9 +224,7 @@ class LeadDetail extends Component {
 
                     <View style={styles.nameblock}>
                         <View style={styles.customername}>
-                            <View style={{justifyContent:'center'}}>
-                           <FontAwesome5 name='user-alt' size={15}  color={appcolor.secondary} />
-                           </View>
+                            
                           <View style={{marginLeft:5}}>
                             <MyText
                                 title={appstring.name}
@@ -245,9 +243,7 @@ class LeadDetail extends Component {
 
                     <View style={styles.addressblock}>
                         <View style={styles.Address}>
-                            <View style={{justifyContent:'center'}}>
-                        <FontAwesome5 name='address-card' color={appcolor.secondary} size={15} />
-                        </View>
+                           
                         <View style={{marginLeft:5}}>
                             <MyText
                                 title={appstring.address}
@@ -285,9 +281,7 @@ class LeadDetail extends Component {
 
                     <View style={styles.problemblock}>
                         <View style={styles.problem}>
-                            <View>report-problem
                            
-                            </View>
                             <MyText
                                 title={appstring.problem}
                                 h4

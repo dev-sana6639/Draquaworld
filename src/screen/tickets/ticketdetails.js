@@ -562,37 +562,7 @@ class TicketDetails extends Component {
                 </View>
                 <View style={{ height: 30 }} />
 
-                {
-                    UpdatedStatus ?
-                        (
-                            <View style={styles.updatehistoryblock}>
-                                <View style={styles.headlineblock}>
-                                    <View style={{ marginLeft: 10 }}>
-                                        <MyText
-                                            title={appstring.history}
-                                            bold
-                                            h3
-                                        />
-                                    </View>
-
-
-                                    <View style={{ flexDirection: 'row', marginTop: 10, }}>
-                                        <View style={{ marginLeft: 10 }}>
-                                            <Entypo name={'dot-single'} color={appcolor.black} size={20} />
-                                        </View>
-
-                                        <View style={{ marginLeft: 10 }}>
-                                            <MyText
-                                                title={UpdatedStatus}
-                                            />
-                                        </View>
-                                    </View>
-                                </View>
-
-                            </View>
-                        )
-                        : null
-                }
+               
                 </ScrollView>
 
             </View>
