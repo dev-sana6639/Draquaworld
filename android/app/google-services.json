@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "585735157763",
+    "firebase_url": "https://draqua-f13f8-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "draqua-f13f8",
+    "storage_bucket": "draqua-f13f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585735157763:android:d7f51489ea65060e3a3636",
+        "android_client_info": {
+          "package_name": "com.draquaworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585735157763-fgaem2jeqar4g3l9hee0ca3s1682ujve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.draquaworld",
+            "certificate_hash": "ab30c4e7c9f5bd86aca1d4dabe70419aac5d1363"
+          }
+        },
+        {
+          "client_id": "585735157763-l5ck80nsc9oclldoj9nkqi8ur25mnlg0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjMeNw7Ue1WKv2nXiN9dpGToxhoXJ0uhA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585735157763-l5ck80nsc9oclldoj9nkqi8ur25mnlg0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
