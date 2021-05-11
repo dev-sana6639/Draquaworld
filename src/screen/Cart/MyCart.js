@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Modal, FlatList, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { MyText } from '../../components/Text/text';
 import EmptyCart from '../../assets/icons/empty-cart.png';
@@ -11,6 +11,13 @@ import Cart from './MyCart1';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
 import Headers from '../../components/Header/Header'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import moment from 'moment';
+import Signature from 'react-native-signature-canvas';
+import { showMessage } from "react-native-flash-message";
+
+import DigSign from '../../components/Signature/DigSign';
+
 
 
 
@@ -21,6 +28,15 @@ const { height, width } = Dimensions.get('window');
 
 class MyCart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            signature: null,
+            emptysign: '',
+            modalVisible: false,
+        };
+    }
+
 
 
     CartItem = ({ item }) => (
@@ -29,15 +45,42 @@ class MyCart extends Component {
         // </LinearGradient>
     )
 
+    onmodalclose = () => {
+        this.setState({ modalVisible: false });
+    }
+
+    // digsign
+    handleSignature = signature => {
+        this.setState({ signature: signature });
+        console.log('sign captured')
+    };
+  
+    
+    emptySign = () =>{
+    this.setState({emptySign:'please sign below'})
+    console.log('please sign ehere')
+    }
+
+    handleClear = () =>{
+        this.setState({signature: null})
+    }
+
+
+
 
     render() {
+        const style = `.m-signature-pad--footer
+    .button {
+      background-color: red;
+      color: #FFF;
+    }`;
 
         //   console.log(this.props.CartProducts.product)
         //   console.log(this.props.CartProducts.quantity)
         const carts = this.props.CartProducts
+        const { modalVisible } = this.state;
+        var lastupdateddate = moment().utcOffset('+05:30').format('YYYY-MM-DD hh:mm:ss a');
 
-        console.log('cart')
-        console.log(this.props)
 
         return (
 
@@ -53,7 +96,7 @@ class MyCart extends Component {
                                 leftComponent={{
 
                                     icon: 'arrowleft',
-                                    text: 'your Cart',
+                                    text: 'Invoice',
                                     bold: 'bold',
                                     color: 'white',
 
@@ -67,16 +110,16 @@ class MyCart extends Component {
 
                         </View>
                         <View style={styles.emptycartblock}>
-                        <Image style={styles.emptycartIcon} source={EmptyCart} />
+                            <Image style={styles.emptycartIcon} source={EmptyCart} />
 
-                        <MyText
-                            title={appstrings.emptycart}
-                            h3
-                            bold
-                        />
+                            <MyText
+                                title={appstrings.emptycart}
+                                h3
+                                bold
+                            />
 
 
-                    </View>
+                        </View>
                     </View>
                 )
 
@@ -90,7 +133,7 @@ class MyCart extends Component {
                                     leftComponent={{
 
                                         icon: 'arrowleft',
-                                        text: 'your Cart',
+                                        text: 'Invoice',
                                         bold: 'bold',
                                         color: 'white',
 
@@ -143,7 +186,7 @@ class MyCart extends Component {
                                 <View style={styles.checkout}>
 
 
-                                    <TouchableOpacity onPress={this.handleCheckout} style={{ borderWidth: 0.1, elevation: 5, borderRadius: 25, width: '90%', alignSelf: 'center', height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: appcolor.primary }}>
+                                    <TouchableOpacity onPress={() => this.setState({ modalVisible: true })} style={{ borderWidth: 0.1, elevation: 5, borderRadius: 25, width: '90%', alignSelf: 'center', height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: appcolor.primary }}>
                                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
                                             <MyText
                                                 title={appstrings.checkout}
@@ -156,6 +199,50 @@ class MyCart extends Component {
 
                                 </View>
                             </View>
+
+
+                            <Modal
+                                animationType="slide"
+
+                                visible={modalVisible}
+                                onRequestClose={() => {
+
+                                    this.setState({ modalVisible: false });
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalView}>
+                                        <View style={styles.cancelicon}>
+                                            <MaterialIcons onPress={this.onmodalclose} name={'cancel'} color={appcolor.red} size={25} />
+                                        </View>
+                                       
+                                    </View>
+
+                                    <View style={styles.signblock}>
+                                        {this.state.signature ? (
+                                            <Image
+                                                resizeMode={"contain"}
+                                                style={{ width: 335, height: 114 }}
+                                                source={{ uri: this.state.signature }}
+                                            />
+                                        ) : null}
+
+                                        <Signature
+                                            onOK={this.handleSignature}
+                                            onClear={this.handleClear}
+                                            descriptionText="Please sign here"
+                                            onClear={this.handleClear}
+                                            clearText="Clear"
+                                            confirmText="Save"
+                                            webStyle={style}
+                                            onEmpty={this.emptySign}
+                                            
+                                        />
+
+                                    </View>
+                                </View>
+                            </Modal>
+
                         </ View>
                     )
 
@@ -179,7 +266,73 @@ const styles = StyleSheet.create({
 
         height: "100%",
         width: "100%",
+
+    },
+    signblock: {
+        height: '90%',
        
+        width: '95%',
+        alignSelf: 'center'
+    },
+    cancelicon: {
+       
+        marginLeft: 20
+    },
+
+    preview: {
+        width: 335,
+        height: 114,
+        backgroundColor: "#F8F8F8",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 15
+    },
+    previewText: {
+        color: "#FFF",
+        fontSize: 14,
+        height: 40,
+        lineHeight: 40,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: "#69B2FF",
+        width: 120,
+        textAlign: "center",
+        marginTop: 10
+    },
+
+
+    buyeraddress: {
+        width: '50%'
+    },
+    technicianinfo: {
+        width: '50%'
+    },
+    buyerinfo: {
+        flexDirection: 'row'
+    },
+    modalbody: {
+        borderWidth: 1
+    },
+    modalcompanyinfo: {
+        flexDirection: 'row'
+    },
+
+    modalcompanyaddress: {
+        width: '50%',
+        borderWidth: 1,
+        padding: 10
+    },
+    companyaddress: {
+        fontSize: 12
+    },
+    modalcompanylogo: {
+        width: '50%',
+        borderWidth: 1
+    },
+    modalView: {
+
+        marginTop: 10,
+        flexDirection: 'row'
     },
     totatltext: {
         color: appcolor.greytext,
@@ -193,7 +346,7 @@ const styles = StyleSheet.create({
     emptycartcontainer: {
         height: '100%',
 
-        
+
     },
     totallines: {
         borderBottomWidth: 0.2,
@@ -225,12 +378,12 @@ const styles = StyleSheet.create({
         height: 45,
 
     },
-    emptycartblock:{
-      
-      height:'90%',
-      width:'100%',
-      justifyContent:'center',
-      alignItems:'center'
+    emptycartblock: {
+
+        height: '90%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     quantityblock: {
         flexDirection: 'row',
@@ -249,9 +402,9 @@ const styles = StyleSheet.create({
 
     },
     footer: {
-       height: '42%',
-        justifyContent:'space-between'
-        
+        height: '42%',
+        justifyContent: 'space-between'
+
 
     },
 

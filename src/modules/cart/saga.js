@@ -5,14 +5,14 @@ function* addToCartSuccessSaga(product){
     
    
     let item = product.payload;
-    console.log('dispatch ADD_TO_CART_SUCCESS')
+    
     
    
     yield put({
         type: Actions.ADD_TO_CART_SUCCESS,
         payload: product.payload
     })
-    console.log('dispatched success')
+   
 }
 
 function* addToCartSaga(payload) {

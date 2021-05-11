@@ -12,10 +12,7 @@ export const getTicketsService = async (uid) => {
                 const Key = child.key
                 const data = child.val()
                 Ticketsdata.push({Key: Key,data: data})
-
-
-
-            })
+   })
 
             
             return Ticketsdata

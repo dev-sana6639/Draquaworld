@@ -21,7 +21,9 @@ export const mainstack = {
     ticket: 'Grabbed Ticket',
     stockScreen: 'Stock screen',
     ticketScreen: 'Ticket Datails',
-    cart: 'Cart'
+    cart: 'Cart',
+    Invoice: 'Invoice',
+    OtpVerify: 'OTP VERIFICATION'
 }
 
 export const rootSwitch = {

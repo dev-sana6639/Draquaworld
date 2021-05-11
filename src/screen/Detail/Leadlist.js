@@ -18,7 +18,9 @@ class Leadlist extends Component {
             RemainderDescription,
             RemainderTitle,
             Remainderdate
-        } = this.props.item;
+        } = this.props.item.data;
+        
+        console.log('data in leadlist is:',this.props.item.data)
 
        
         const Mydate = new Date(Remainderdate)
@@ -29,7 +31,7 @@ class Leadlist extends Component {
         const RemainderHour = Mydate.getHours();
         const RemainderMinute = Mydate.getMinutes();
 
-        console.log('came to Leadlist',this.props.item)
+       
 
         return (
 

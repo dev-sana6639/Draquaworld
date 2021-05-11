@@ -103,19 +103,20 @@ class LeadDetail extends Component {
             machine,
             machineproblem,
             phone,
-            date
-
+            date,
         } = this.props;
 
         this.setState({ CurrentStatus: itemValue })
         const { UpdatedStatus, Remainderdate, RemainderTitle, RemainderDescription } = this.state;
 
         const uid = this.props.uid;
+        const Pid = this.props.Pid;
         var lastupdateddate = moment().utcOffset('+05:30').format('YYYY-MM-DD hh:mm:ss a');
 
       
                         grabTicketService({
                             uid,
+                            Pid,
                             id,
                             address,
                             customername,
@@ -193,7 +194,7 @@ class LeadDetail extends Component {
     render() {
 
 
-
+       
 
 
         const {
@@ -209,9 +210,11 @@ class LeadDetail extends Component {
             RemainderTitle,
             Remainderdate,
             UpdatedStatus,
+            Pid
 
         } = this.props;
-
+        
+       
 
         const { modalVisible, mode, show, notificationTime, notificationTitle, isDateTimePickerVisible, remainderdateError, remainderError } = this.state;
         const {

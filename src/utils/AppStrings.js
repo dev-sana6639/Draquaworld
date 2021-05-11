@@ -19,6 +19,7 @@ export const logout = 'Log out'
 export const enternumber = "Enter Number"
 export const phonenumber = "Phone Number"
 
+
 export const total = 'Total :'
 export const checkout = 'Check Out'
 export const setremainder = "SET REMAINDER"
@@ -35,7 +36,7 @@ export const UpdatedStatus = 'Update Status here...'
 export const price = "Price:"
 export const addtocart = "ADD TO CART"
 export const grab = "GRAB TICKET"
-
+export const sendotp = "SEND OTP";
 export const add = "Add"
 
 // Home page strings

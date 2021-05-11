@@ -18,6 +18,8 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { getuidSelector } from '../../modules/auth/selectors';
 import { updateTicketService,droppedplan } from '../../modules/tickets/services'
 import moment from 'moment';
+import OtpVerifyScreen from './OtpVerifyScreen';
+import { mainstack } from '../../config/navigator';
 
 
 const { height, width } = Dimensions.get('window');
@@ -88,6 +90,7 @@ class TicketDetails extends Component {
 
     componentDidMount() {
         const UpdatedStatus = this.props.route.params.item.data.UpdatedStatus;
+     
 
         this.setState({ CurrentStatus: UpdatedStatus })
     }
@@ -188,8 +191,7 @@ class TicketDetails extends Component {
                 statusBarHeight: 5,
                 type: "default",
                 icon: "success",
-                backgroundColor: appcolors.primary, // background color
-                color: appcolors.white, // text color
+                // text color
             });
         
 
@@ -644,6 +646,7 @@ class TicketDetails extends Component {
                         </View>
                     </Modal>
 
+
                     <View style={styles.updatestatusbuttonblock}>
                         <View style={styles.updatestatusbutton}>
                             <MyText
@@ -668,6 +671,20 @@ class TicketDetails extends Component {
                             </Picker>
                         </View>
                     </View>
+
+                    <View style={styles.verifyotpblock}>
+                        <Text style={styles.verifyotptext}>Verify your OTP here..</Text>
+                    </View>
+                   
+                    <View style={styles.sendotp}>
+                    <TouchableOpacity style={styles.sendotpButton} onPress={() => this.props.navigation.navigate(mainstack.OtpVerify)}>
+                        <MyText 
+                        title={appstring.sendotp} 
+                         bold
+                         color={appcolor.white}
+                        />
+                    </TouchableOpacity>
+                    </View>
                     <View style={{ height: 30 }} />
 
 
@@ -689,6 +706,33 @@ const styles = StyleSheet.create({
 
 
 
+    },
+    sendotp:{
+        width:'95%',
+        alignSelf:'center',
+        height:40,
+      
+       marginTop:10,
+       justifyContent:'center',
+       alignItems:'center',
+      
+    },
+    verifyotptext:{
+        color:appcolor.greytext
+    },
+    verifyotpblock:{
+     width:'95%',
+     alignSelf:'center',
+     justifyContent:'center',
+     marginTop:10,
+     alignItems:'center'   
+    },
+    sendotpButton:{
+      
+       elevation:3,
+       padding:10 ,
+       borderRadius:10,
+       backgroundColor:appcolor.primary
     },
     nameblock: {
 

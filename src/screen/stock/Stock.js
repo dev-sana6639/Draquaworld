@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator,Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import Headers from '../../components/Header/Header';
-import Spare from '../../assets/stockphotos/spare.jpg';
+
 import StockDetails from '../stock/StockDetails';
 // import {fetchstock} from '../../modules/stock/service';
 // import {fetchstock} from '../../modules/stock/actions'
@@ -9,74 +9,87 @@ import { connect } from 'react-redux';
 import { GetStockSelector } from '../../modules/stock/selectors'
 import * as appcolor from '../../utils/colors';
 import { fetchstockService } from "../../modules/stock/service"
-import {addToCart} from '../../modules/cart/actions'
+import { addToCart } from '../../modules/cart/actions'
 const { width, height } = Dimensions.get('window');
 import { MyText } from '../../components/Text/text';
 import { showMessage } from "react-native-flash-message";
 
 import * as appstring from '../../utils/AppStrings'
 class StockScreen extends Component {
-     
-    constructor(props){
+
+    constructor(props) {
         super(props);
         this.state = {
-            stockData : [],
+            stockData: [],
             loading: false,
         }
     }
 
-   fetchStockdata = async () => {
-      const stockData = await fetchstockService();
-     this.setState({stockData: stockData})
-     this.setState({loading: false})
+    fetchStockdata = async () => {
+        const stockData = await fetchstockService();
+        this.setState({ stockData: stockData })
+        this.setState({ loading: false })
 
-    
-      
-   }
+
+
+    }
     componentDidMount() {
-        this.setState({loading: true})
-    this.fetchStockdata()
+        this.setState({ loading: true })
+        this.fetchStockdata()
 
-     }
+    }
 
     // componentDidMount() {
     //    this.props.dispatch(fetchstock())
     // }
 
-    handlecart = ({item}) =>{
-      
+    handlecart = ( item ) => {
+       
+
         this.props.dispatch(addToCart(item))
-        
-        let name = item.name;  
+
+        let name = item.name;
         showMessage({
-         statusBarHeight:3,
-               message:`" ${name}"` + ' is added to cart',
-               type: "info",
-               icon: "success",
-               backgroundColor: appcolor.notificationcolor, // background color
-               color: appcolor.white, // text color
-             });
-     }
+            statusBarHeight: 3,
+            message: `" ${name}"` + ' is added to cart',
+            type: "info",
+            icon: "success",
+            backgroundColor: appcolor.notificationcolor, // background color
+            color: appcolor.white, // text color
+        });
+    }
 
-    renderItem = (item) => (
+    renderItem = ({ item }) => (
         <View style={styles.maincontainer}>
-            <StockDetails item={item} />
+            {/* <StockDetails item={item} /> */}
+            <View style={{ width: '25%' }}>
+                <Text>{item.name}</Text>
+            </View>
 
-            <TouchableOpacity onPress={ () => this.handlecart(item)} style={styles.addtocartbutton}>
-                  
-                        <MyText
-                            title={appstring.addtocart}
-                            color={appcolor.white}
-                            h4
-                        />
-                    
-                </TouchableOpacity>
-        </View>   
+            <View style={{ width: '20%' }}>
+                <Text>{item.code}</Text>
+            </View>
+            <View style={{ width: '20%' }}>
+                <Text>{item.price}</Text>
+            </View>
+
+
+            <View style={{ width: '30%' }}>
+                <MyText
+                    onPress={() => this.handlecart(item)}
+                    title={appstring.addtocart}
+                    color={appcolor.primary}
+                />
+            </View>
+
+
+
+        </View>
     )
     render() {
-        
-     
-      const stockdata =this.state.stockData
+
+
+        const stockdata = this.state.stockData
 
         return (
             <View style={styles.container}>
@@ -101,27 +114,46 @@ class StockScreen extends Component {
                 </View>
 
                 { this.state.loading ? (
-                    <View style={{height:'100%',width:'100%',justifyContent:'center',alignItems:'center'}}>
-                    <ActivityIndicator size="large" color={appcolor.secondary} />
-                    </View> 
+                    <View style={{ height: '100%', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                        <ActivityIndicator size="large" color={appcolor.secondary} />
+                    </View>
                 ) :
+                    <>
+                        <View style={{flexDirection:'row', alignSelf:'center', width: '95%', height: 40,justifyContent:'center',alignItems:'center'}}>
+                            <View style={{ width: '25%' }}>
+                                <Text style={{fontWeight:'bold',fontSize:15}}>Name</Text>
+                            </View>
 
-                <View style={styles.stockslist}>
-                
-                    <FlatList
-                        data={stockdata}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item) => item.id}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
+                            <View style={{ width: '20%' }}>
+                                <Text style={{fontWeight:'bold',fontSize:15}}>Code</Text>
+                            </View>
+                            <View style={{ width: '20%' }}>
+                                <Text style={{fontWeight:'bold',fontSize:15}}>Price</Text>
+                            </View>
+                            <View style={{width:'30%'}} />
+                              
 
-                    />
-                    
+                        </View>
+
+                        <View style={styles.stockslist}>
+
+                            <FlatList
+                                data={stockdata}
+                                renderItem={this.renderItem}
+                                keyExtractor={(item) => item.id}
+                                showsVerticalScrollIndicator={false}
+                                showsHorizontalScrollIndicator={false}
+
+                            />
 
 
-                </View>
 
-    }
+                        </View>
+
+                    </>
+
+
+                }
 
 
 
@@ -132,27 +164,28 @@ class StockScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-      height:'100%',
-      width:'100%'
+        height: '100%',
+        width: '100%'
 
     },
-   
+    
+
     stockslist: {
-        height:'87%',
+        height: '87%',
 
         width: '95%',
 
         alignSelf: 'center',
-        marginTop:5
+        marginTop: 5
 
     },
     header: {
-        borderWidth:0.1,
-        elevation:2,
+        borderWidth: 0.1,
+        elevation: 2,
         width: '100%',
-        height:'6%',
-       
-        
+        height: '6%',
+
+
     },
     addtocartbutton: {
         height: 40,
@@ -166,8 +199,12 @@ const styles = StyleSheet.create({
         padding: 10
     },
     maincontainer: {
-
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
         borderWidth: 0.1,
         elevation: 2,
         marginBottom: 10,

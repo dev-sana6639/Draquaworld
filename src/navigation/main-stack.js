@@ -13,6 +13,8 @@ import Mycart from '../screen/Cart/MyCart';
 import StocksScreen from '../screen/stock/Stock';
 import TicketDetails from '../screen/tickets/ticketdetails';
 import Leadlist from '../screen/Detail/Leadlist';
+import Invoice from '../screen/Invoice/Invoice';
+import OtpVerifyScreen from '../screen/tickets/OtpVerifyScreen';
 
 const Stack = createStackNavigator();
 
@@ -49,7 +51,8 @@ function MainStack() {
             <Stack.Screen options={{headerShown: false}} name={mainstack.stockScreen} component={StocksScreen} />
             <Stack.Screen options={{headerShown: false}} name={mainstack.ticketScreen} component={TicketDetails} />
             <Stack.Screen options={{headerShown: false}} name={authStack.login} component={LoginScreen} />
-
+            <Stack.Screen option={{headerShown: false}} name={mainstack.Invoice} component={Invoice} />
+            <Stack.Screen options={{headerShown: false}} name={mainstack.OtpVerify} component={OtpVerifyScreen} />
  
         </Stack.Navigator>
     )

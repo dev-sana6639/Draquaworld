@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet,ActivityIndicator, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import Headers from '../../components/Header/Header';
-import ListScreen from '../List/ListScreen';
+
 import { mainstack } from '../../config/navigator'
 import { MyText } from '../../components/Text/text';
 import * as appcolor from '../../utils/colors'
@@ -25,6 +25,7 @@ class LeadScreen extends Component {
 
     fetchLeads = async () => {
         const leaddata = await getLeadService();
+        
         this.setState({leads: leaddata})
         this.setState({loading:false})
     }
@@ -36,10 +37,9 @@ class LeadScreen extends Component {
 
 
     renderItem = ({ item }) =>
-    
-     (
+    (
         <View style={styles.maincontainer}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate(mainstack.Detail, item )}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate(mainstack.Detail,{item} )}>
                 <Leadlist item={item} />
 
 
@@ -101,7 +101,7 @@ class LeadScreen extends Component {
                     <FlatList
                         data={Leads}
                         renderItem={this.renderItem}
-                        // keyExtractor={item => item.id}
+                        keyExtractor={item => item.Key}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                     />
@@ -125,10 +125,7 @@ const styles = StyleSheet.create({
         elevation:2,
         width: '100%',
         height:'5%',
-        
-       
-        
-    },
+       },
     list: {
         height:'94%',
         marginTop: 5,

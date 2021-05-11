@@ -69,17 +69,16 @@ class Cart extends Component {
  
         return (
             <View style={styles.container}>
-                <View style={styles.Imagecontainer}>
-                    <Image source={{ uri: url }} style={styles.image} />
-                </View>
-                <View style={styles.infocontainer}>
+                
+              
                     <View style={styles.namecontainer}>
                         <MyText
                             title={name}
                             h5
                         />
                     </View>
-                    <View style={styles.pricecontainer}>
+
+                  
 
 
                         <View style={styles.quantityblock}>
@@ -88,14 +87,15 @@ class Cart extends Component {
                             <View style={{ borderColor: '#B4B6B4', borderTopWidth: 1, borderBottomWidth: 1, width: 30, justifyContent: 'center', alignItems: 'center' }}><Text>{quantity}</Text></View>
 
                             <TouchableOpacity onPress={() => { this.handleAddQuantity(id) }} style={{ borderWidth: 1, borderTopRightRadius: 3, borderBottomEndRadius: 3, borderColor: '#B4B6B4', width: 30, justifyContent: 'center', alignItems: 'center' }}><Icon name="plus" color="#B4B6B4" size={15} /></TouchableOpacity>
-
-
-                        </View>
-
                         
                             <TouchableOpacity style={styles.deleteicon} onPress={() =>this.handleremoveitem(id)}>
                                 <MaterialCommunityIcons name={'delete'} size={20} color={'red'} />
                             </TouchableOpacity>
+
+                        </View>
+
+                        
+                           
                     
 
                         <View style={styles.priceblock}>
@@ -106,8 +106,8 @@ class Cart extends Component {
                         </View>
 
 
-                    </View>
-                </View>
+                    
+            
             </View>
         )
     }
@@ -115,12 +115,14 @@ class Cart extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginBottom:10,
         flexDirection: 'row',
-       
-        
-        
-         justifyContent:'center',
-         alignItems:'center'
+        borderWidth:0.5,
+        padding:10,
+        borderRadius:10,       
+        justifyContent:'space-between',
+         alignItems:'center',
+         
         
         
 
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
 
     },
     namecontainer: {
-
+      width:'30%'
     },
     pricecontainer: {
         flexDirection: 'row',
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
     priceblock: {
         height: 30,
        marginRight:15,
-
+       width:'25%',
         alignSelf: 'flex-end',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -171,14 +173,16 @@ const styles = StyleSheet.create({
     },
     quantityblock: {
         flexDirection: 'row',
-     
+        width:'50%',
+        justifyContent:'center',
        
         height: 30,
       
       
     },
     deleteicon:{
-        
+     marginLeft:10,
+     justifyContent:'center',
     },
     footer: {
         height: '50%'

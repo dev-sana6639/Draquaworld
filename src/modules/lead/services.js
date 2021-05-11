@@ -55,14 +55,24 @@ export const getLeadService = async () => {
     .ref('/leads')
     .once('value')
     .then(snapshot => {
-      var data = snapshot.val()
-      return data
+      const LeadsData = []
+
+       snapshot.forEach( (child) =>{
+
+         const Key = child.key
+         const data = child.val()
+        
+         LeadsData.push({Key: Key,data:data})
+       })
+
+       return LeadsData;
+      
     })
 
-  return leadData;
+     return leadData 
 }
 
-export const grabTicketService = (props) => {
+export const grabTicketService = async (props) => {
 
   const {
     id,
@@ -77,13 +87,14 @@ export const grabTicketService = (props) => {
     Remainderdate,
     RemainderTitle,
     RemainderDescription,
-    lastupdateddate
+    lastupdateddate,
+    Pid
   } = props;
 
   const {uid} = props
 
 
-  
+   try {
   const grabticketrespose = database().ref('/Users/' + uid )
   .push({
     id,
@@ -100,6 +111,18 @@ export const grabTicketService = (props) => {
     RemainderDescription,
     lastupdateddate
   })
+
+     
+  // after grabbing successfully, the lead should disappear from leads list and it will be saved in specific user's grabbed ticket list
+    // database().ref(`leads/${Pid}`).remove();
+    // alert('pushed into users account ticket')
+    
+     
+     
+
+} catch(e){
+  console.log('Error while grabbing ticket')
+}
    
 
 }

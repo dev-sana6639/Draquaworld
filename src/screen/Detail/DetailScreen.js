@@ -11,7 +11,7 @@ class DetailScreen extends Component {
 
 
     MakeCall = (phone) => {
-        Linking.openURL(`tel:${this.props.route.params.phone}`)
+        Linking.openURL(`tel:${this.props.route.params.item.data.phone}`)
 
     }
 
@@ -32,7 +32,11 @@ class DetailScreen extends Component {
             Remainderdate,
             UpdatedStatus,
 
-        } = this.props.route.params;
+        } = this.props.route.params.item.data;
+
+    const Pid = this.props.route.params.item.Key;
+    
+        
 
 
         return (
@@ -74,6 +78,8 @@ class DetailScreen extends Component {
                             RemainderTitle={RemainderTitle}
                             Remainderdate={Remainderdate}
                             UpdatedStatus={UpdatedStatus}
+                            Pid={Pid}
+                            phone={this.props.route.params.item.data.phone}
                         />
                         </ScrollView>
                     </View>
